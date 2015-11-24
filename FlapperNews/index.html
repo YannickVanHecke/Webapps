@@ -24,6 +24,9 @@
       <span class="glyphicon glyphicon-thumbs-up"
         ng-click="incrementUpvotes(post)"></span>
       {{post.upvotes}}
+      <span class="glyphicon glyphicon-thumbs-down"
+        ng-click="decrementUpvotes(post)"></span>
+        {{post.downvotes}}
       <span style="font-size:20px; margin-left:10px;">
         <a ng-show="post.link" href="{{post.link}}">
           {{post.title}}
@@ -39,7 +42,6 @@
     <form ng-submit="addPost()"
       style="margin-top:30px;">
       <h3>Add a new post</h3>
-
       <div class="form-group">
         <input type="text"
           class="form-control"
@@ -67,13 +69,23 @@
       </h3>
     </div>
   <div ng-repeat="comment in post.comments | orderBy:'-upvotes'">
-    <span class="glyphicon glyphicon-thumbs-up"
-      ng-click="incrementUpvotes(comment)"></span>
     {{comment.upvotes}} - by {{comment.author}}
     <span style="font-size:20px; margin-left:10px;">
       {{comment.body}}
     </span>
   </div>
+  <form ng-submit="addComment()"
+    style="margin-top:30px;">
+    <h3>Add a new comment</h3>
+
+    <div class="form-group">
+      <input type="text"
+      class="form-control"
+      placeholder="Comment"
+      ng-model="body"></input>
+    </div>
+    <button type="submit" class="btn btn-primary">Post</button>
+  </form>
 </script>
 <script type="text/ng-template" id="/posts.html">
 
@@ -86,9 +98,6 @@
       </a>
       <span ng-hide="post.link">
         {{post.title}}
-      </span>
-      <span>
-        <a href="#/posts/{{$index}}">Comments</a>
       </span>
     </h3>
   </div>
@@ -115,5 +124,6 @@
     <button type="submit" class="btn btn-primary">Post</button>
   </form>
 </script>
+
 </body>
 </html>
